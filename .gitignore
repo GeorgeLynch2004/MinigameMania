@@ -2,13 +2,13 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
 #
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Uu]ser[Ss]ettings/
+Minigame_Mania/[Ll]ibrary/
+Minigame_Mania/[Tt]emp/
+Minigame_Mania/[Oo]bj/
+Minigame_Mania/[Bb]uild/
+Minigame_Mania/[Bb]uilds/
+Minigame_Mania/[Ll]ogs/
+Minigame_Mania/[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
