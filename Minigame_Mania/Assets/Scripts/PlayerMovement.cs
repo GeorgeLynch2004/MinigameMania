@@ -5,17 +5,35 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private InputAction playerControls;
+    [SerializeField] public PlayerControls _PlayerControls;
+    [SerializeField] private Rigidbody2D _Rigidbody;
+    [SerializeField] private float _MovementSpeed;
+    private InputAction _Move;
+    private Vector2 _MoveDirection = Vector2.zero;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake() 
     {
-        
+        _PlayerControls = new PlayerControls();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable() 
     {
-        
+        _Move = _PlayerControls.Player.Move;
+        _Move.Enable();
+    }
+
+    private void OnDisable() 
+    {
+        _Move.Disable();  
+    }
+
+    private void Update() 
+    {
+        _MoveDirection = _Move.ReadValue<Vector2>();
+    }
+
+    private void FixedUpdate() 
+    {
+        _Rigidbody.velocity = new Vector2(_MoveDirection.x * _MovementSpeed, _MoveDirection.y * _MovementSpeed);  
     }
 }
