@@ -1,39 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.Networking;
+using Unity.Netcode;
 
-public class PlayerMovement : MonoBehaviour
-{
-    [SerializeField] public PlayerControls _PlayerControls;
+public class PlayerMovement : NetworkBehaviour {
+    
     [SerializeField] private Rigidbody2D _Rigidbody;
     [SerializeField] private float _MovementSpeed;
-    private InputAction _Move;
-    private Vector2 _MoveDirection = Vector2.zero;
 
-    private void Awake() 
-    {
-        _PlayerControls = new PlayerControls();
-    }
-
-    private void OnEnable() 
-    {
-        _Move = _PlayerControls.Player.Move;
-        _Move.Enable();
-    }
-
-    private void OnDisable() 
-    {
-        _Move.Disable();  
-    }
-
-    private void Update() 
-    {
-        _MoveDirection = _Move.ReadValue<Vector2>();
-    }
+    private NetworkVariable<int> randomNumber = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     private void FixedUpdate() 
     {
-        _Rigidbody.velocity = new Vector2(_MoveDirection.x * _MovementSpeed, _MoveDirection.y * _MovementSpeed);  
+        Debug.Log(OwnerClientId + ": " + randomNumber.Value);
+        if (!IsOwner) return;
+
+        if (Input.GetKey(KeyCode.A)){_Rigidbody.velocity = Vector2.left * _MovementSpeed;}
+        if (Input.GetKey(KeyCode.D)){_Rigidbody.velocity = Vector2.right * _MovementSpeed;}
+
+        if (Input.GetKeyDown(KeyCode.T)){randomNumber.Value = Random.Range(0,100);}
     }
 }
