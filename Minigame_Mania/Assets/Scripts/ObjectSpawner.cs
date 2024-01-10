@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Used for Minigames like Meteor and Floor is Lava
 public class ObjectSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject objectToSpawn;
