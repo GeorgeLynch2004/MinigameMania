@@ -8,6 +8,10 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private static List<Player> m_Players = new List<Player>();
     public static event System.Action<List<Player>> OnPlayerListChanged;
 
+    private void Awake() {
+        DontDestroyOnLoad(gameObject);
+    }
+
     public static void RegisterPlayer(Player player)
     {
         m_Players.Add(player);

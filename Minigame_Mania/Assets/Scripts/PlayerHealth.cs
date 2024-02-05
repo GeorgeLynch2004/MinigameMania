@@ -15,6 +15,7 @@ public class PlayerHealth : NetworkBehaviour
         _CurrentHealth.OnValueChanged += (int previousValue, int newValue) => 
         {
             Debug.Log(OwnerClientId + "; Current Health: " + _CurrentHealth.Value);
+            
         };
     }
 

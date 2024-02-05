@@ -13,6 +13,12 @@ public class Player : NetworkBehaviour
 
     public string Username => m_SyncedUsername;
 
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void OnUsernameChanged(string oldValue, string newValue)
     {
         m_Username = newValue;

@@ -8,11 +8,17 @@ public class GroundChecker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        _playerMovement.setIsGrounded(true);    
+        if (other.gameObject.tag == "Ground")
+        {
+            _playerMovement.setIsGrounded(true);  
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other) 
     {
-        _playerMovement.setIsGrounded(false);    
+        if (other.gameObject.tag == "Ground")
+        {
+            _playerMovement.setIsGrounded(false); 
+        }
     }
 }

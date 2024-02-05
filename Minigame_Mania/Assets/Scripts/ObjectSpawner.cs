@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 // Used for Minigames like Meteor and Floor is Lava
-public class ObjectSpawner : MonoBehaviour
+public class ObjectSpawner : NetworkBehaviour
 {
     [SerializeField] private GameObject objectToSpawn;
     [SerializeField] private float xRandomDistance;
@@ -24,6 +25,8 @@ public class ObjectSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!NetworkManager.IsHost) return;
+
         if (currentTimer >= timeBetweenSpawns) 
         {
             // Every time there is a spawn random values are generated to determine where the meteor spawns on the x axis. This value is rounded to an integer for the sake of trying to prevent unavoidable deaths.
@@ -36,7 +39,11 @@ public class ObjectSpawner : MonoBehaviour
             Quaternion rot = new Quaternion(0,0,0,0);
 
             currentTimer = 0f;
-            if (objectToSpawn != null){Instantiate(objectToSpawn, pos, rot);};
+            if (objectToSpawn != null)
+            {
+                GameObject gameObject = Instantiate(objectToSpawn, pos, rot);
+                gameObject.GetComponent<NetworkObject>().Spawn();
+            }
         }
         else
         {

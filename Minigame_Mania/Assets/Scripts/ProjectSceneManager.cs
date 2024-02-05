@@ -12,5 +12,18 @@ public class ProjectSceneManager : NetworkBehaviour
     [SerializeField] private string m_SceneName;
     private string m_previousSceneName;
 
+    private void Awake() {
+        
+        if (NetworkManager.IsHost)
+        {
+            LevelBtn.onClick.AddListener(() => {
+                SceneManager.LoadSceneAsync(m_SceneName);
+            });     
+        }
+
+          
+    }
+
+    
    
 }
