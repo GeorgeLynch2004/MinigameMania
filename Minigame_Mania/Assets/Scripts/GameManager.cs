@@ -5,14 +5,15 @@ using Unity.Netcode;
 
 public class GameManager : NetworkBehaviour
 {
-    [SerializeField] private static List<Player> m_Players = new List<Player>();
+    [SerializeField] private List<Player> m_Players;
     public static event System.Action<List<Player>> OnPlayerListChanged;
 
     private void Awake() {
         DontDestroyOnLoad(gameObject);
+        m_Players = new List<Player>();
     }
 
-    public static void RegisterPlayer(Player player)
+    public void RegisterPlayer(Player player)
     {
         m_Players.Add(player);
         OnPlayerListChanged?.Invoke(m_Players);
