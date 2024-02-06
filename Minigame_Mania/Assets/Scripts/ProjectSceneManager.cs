@@ -14,12 +14,15 @@ public class ProjectSceneManager : NetworkBehaviour
 
     private void Awake() {
         
-        if (NetworkManager.IsHost)
-        {
-            LevelBtn.onClick.AddListener(() => {
-                SceneManager.LoadSceneAsync(m_SceneName);
-            });     
-        }
+        LevelBtn.onClick.AddListener(() => {
+
+            if (NetworkManager.Singleton.IsHost)
+            {
+                Debug.Log("Is host");
+                NetworkManager.SceneManager.LoadScene(m_SceneName, LoadSceneMode.Single);
+            }
+            else Debug.Log("Is not host");
+        });     
 
           
     }

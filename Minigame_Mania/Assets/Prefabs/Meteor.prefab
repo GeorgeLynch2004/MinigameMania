@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _FallingSpeed: 0.5
+  m_TimeTillDestroy: 1
 --- !u!114 &2337681341662340075
 MonoBehaviour:
   m_ObjectHideFlags: 0
