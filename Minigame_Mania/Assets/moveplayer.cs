@@ -10,19 +10,38 @@ public class moveplayer : MonoBehaviour
 
     public float moveSpeed = 5f;
     private GameObject[] waypoints;
-    private int currentWaypointIndex = 1;
+    private int currentWaypointIndex = 0;
     // Start is called before the first frame update
+
+
+    private void SortWaypointsByName()
+    {
+        bool swapped;
+        do
+        {
+            swapped = false;
+            for (int i = 0; i < waypoints.Length - 1; i++)
+            {
+                if (string.Compare(waypoints[i].name, waypoints[i + 1].name) > 0)
+                {
+                    GameObject temp = waypoints[i];
+                    waypoints[i] = waypoints[i + 1];
+                    waypoints[i + 1] = temp;
+                    swapped = true;
+                }
+            }
+        } while (swapped);
+    }
+
     void Start()
     {
         waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
+        SortWaypointsByName();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //increment current wypoint once movement has finished
-       
-
         transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position, moveSpeed * Time.deltaTime);
     }
 
