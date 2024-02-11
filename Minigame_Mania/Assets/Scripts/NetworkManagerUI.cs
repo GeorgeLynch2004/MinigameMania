@@ -23,25 +23,6 @@ public class NetworkManagerUI : NetworkBehaviour
         ClientBtn.onClick.AddListener(() => {
             NetworkManager.Singleton.StartClient();
         });
-
-        // Subscribe to the event to update UI when the player list changes
-        GameManager.OnPlayerListChanged += UpdatePlayerListUI;
     }
-
-    public override void OnDestroy() {
-        // Unsubscribe to prevent memory leaks
-        GameManager.OnPlayerListChanged -= UpdatePlayerListUI;
-    }
-
-    private void UpdatePlayerListUI(List<Player> players)
-    {
-        string playerListText = "Players Joined: " + players.Count + "\n";
-
-        foreach (Player player in players)
-        {
-            playerListText += player.Username + "\n";
-        }
-
-        PlayersJoinedText.text = playerListText;
-    }   
+  
 }
