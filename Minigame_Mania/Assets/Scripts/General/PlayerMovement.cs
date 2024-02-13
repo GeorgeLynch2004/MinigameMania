@@ -13,16 +13,25 @@ public class PlayerMovement : NetworkBehaviour {
     [SerializeField] private float _jumpHeight;
     [SerializeField] private bool _canMove;
     [SerializeField] private bool _isGrounded;
+    [SerializeField] private GameManager m_GameManager;
 
     private void Start() 
     {
-        _rigidbody = GetComponent<Rigidbody2D>();    
+        _rigidbody = GetComponent<Rigidbody2D>();   
+        m_GameManager = GameObject.Find("GameManager").GetComponent<GameManager>(); 
     }
 
     private void FixedUpdate()
     {
         if (!IsOwner) return;
         if (!_canMove) return;
+        if (!m_GameManager.GetGameRunning())
+        {
+            _rigidbody.gravityScale = 0;
+            return;
+        }
+
+        _rigidbody.gravityScale = 1;
 
         Vector3 _velocity = _rigidbody.velocity;
 

@@ -14,18 +14,21 @@ public class ObjectSpawner : NetworkBehaviour
     [SerializeField] private float intervalIncreaseTimer;
     [SerializeField] private float intervalIncreaseAmount;
     private float currentIntervalIncreaseTimer;
+    private GameManager m_GameManager;
 
     // Start is called before the first frame update
     void Start()
     {
         currentTimer = 0f;
         timeBetweenSpawns = 0.8f;
+        m_GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!NetworkManager.IsHost) return;
+        if (!IsHost) return;
+        if (!m_GameManager.GetGameRunning()) return;
 
         if (currentTimer >= timeBetweenSpawns) 
         {
