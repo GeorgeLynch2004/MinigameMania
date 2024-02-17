@@ -104,13 +104,12 @@ GameObject:
   - component: {fileID: 3801843727616017048}
   - component: {fileID: 8992444618769680954}
   - component: {fileID: 1161747144673065286}
-  - component: {fileID: 2733720110409805072}
+  - component: {fileID: 7344216571974328585}
   - component: {fileID: 159492899718931372}
   - component: {fileID: 1047339899901787558}
-  - component: {fileID: 995668283771528665}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -275,7 +274,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &2733720110409805072
+--- !u!114 &7344216571974328585
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -284,12 +283,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7555317427053185411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 906f06518642808478cb7a3dbb0c770c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f759a966e6147d4e90eefed5d542125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _MaxHealth: 3
-  _CurrentHealth:
+  m_CurrentHealth:
     m_InternalValue: 0
+  m_IsAlive:
+    m_InternalValue: 0
+  m_MaxHealth: 3
 --- !u!114 &159492899718931372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,6 +310,7 @@ MonoBehaviour:
   _jumpHeight: 1000
   _canMove: 1
   _isGrounded: 0
+  m_GameManager: {fileID: 0}
 --- !u!114 &1047339899901787558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,22 +341,3 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &995668283771528665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7555317427053185411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2616f7d9aa1ffb4dbf9937ad8c770fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 0}
-  _movementSpeed: 10
-  _maxVelocityX: 5
-  _maxVelocityY: 40
-  _jumpHeight: 1000000
-  _canMove: 1
-  _isGrounded: 0

@@ -64,4 +64,14 @@ public class PlayerMovement : NetworkBehaviour {
     {
         _isGrounded = state;
     }
+
+    public bool getCanMove()
+    {
+        return _canMove;
+    }
+
+    public void setCanMove(bool state)
+    {
+        _canMove = state;
+    }
 }
