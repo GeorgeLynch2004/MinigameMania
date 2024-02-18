@@ -34,10 +34,6 @@ public class rolldice : MonoBehaviour
     {
         
         int randomDiceSide = 0;
-
-        
-        
-
         
         for (int i = 0; i <= 15; i++)
         {
