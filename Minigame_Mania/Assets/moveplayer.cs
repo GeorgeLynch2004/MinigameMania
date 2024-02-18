@@ -12,6 +12,7 @@ public class moveplayer : MonoBehaviour
     private GameObject[] waypoints;
     private int currentWaypointIndex = 0;
     public int result;
+    public bool moving;
     public void SetDiceResult(int diceResult)
     {
         result = diceResult;
@@ -40,6 +41,7 @@ public class moveplayer : MonoBehaviour
 
     void Start()
     {
+
         waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
         SortWaypointsByName();
     }
@@ -47,7 +49,9 @@ public class moveplayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        moving = true;
         transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position, moveSpeed * Time.deltaTime);
+        moving = false;
     }
 
 
@@ -66,8 +70,13 @@ public class moveplayer : MonoBehaviour
         int result  = diceScript.GetResult();
         for (int i = 0; i < result; i++)
         {
+            while(moving)
+            {
+                Thread.Sleep(50);
+            }
+            
             MoveToNextWaypoint();
-            Thread.Sleep(500);
+           
         }
     }
 }
