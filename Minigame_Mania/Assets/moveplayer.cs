@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Threading;
 
 
 
@@ -11,10 +11,15 @@ public class moveplayer : MonoBehaviour
     public float moveSpeed = 5f;
     private GameObject[] waypoints;
     private int currentWaypointIndex = 0;
-    // Start is called before the first frame update
+    public int result;
+    public void SetDiceResult(int diceResult)
+    {
+        result = diceResult;
+    }
+        // Start is called before the first frame update
 
 
-    private void SortWaypointsByName()
+        private void SortWaypointsByName()
     {
         bool swapped;
         do
@@ -50,5 +55,19 @@ public class moveplayer : MonoBehaviour
     public void MoveToNextWaypoint()
     {
         currentWaypointIndex = Mathf.Min(currentWaypointIndex + 1, waypoints.Length - 1);
+    }
+
+    public void DiceMove()
+    {
+
+        GameObject diceObject = GameObject.Find("dice1");
+        rolldice diceScript = diceObject.GetComponent<rolldice>();
+        int steps = 0;
+        int result  = diceScript.GetResult();
+        for (int i = 0; i < result; i++)
+        {
+            MoveToNextWaypoint();
+            Thread.Sleep(500);
+        }
     }
 }

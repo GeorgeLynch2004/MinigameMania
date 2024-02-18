@@ -6,7 +6,7 @@ public class rolldice : MonoBehaviour
     private SpriteRenderer render;
     private Sprite[] diceSides;
     public int sortingOrder = 10;
-
+    public int result;
 
 
     private void Start()
@@ -24,8 +24,11 @@ public class rolldice : MonoBehaviour
         StartCoroutine("RollDice");
     }
 
-   
-    private IEnumerator RollDice()
+   public  void roll()
+    {
+        StartCoroutine("RollDice");
+    }
+    public IEnumerator RollDice()
     {
         
         int randomDiceSide = 0;
@@ -41,8 +44,12 @@ public class rolldice : MonoBehaviour
             render.sprite = diceSides[randomDiceSide];
             yield return new WaitForSeconds(0.05f);
         }
-        int result = randomDiceSide + 1;
+        result = randomDiceSide + 1;
 
         
+    }
+    public int GetResult()
+    {
+        return result;
     }
 }
