@@ -63,20 +63,31 @@ public class moveplayer : MonoBehaviour
 
     public void DiceMove()
     {
+        StartCoroutine(DelayedMovePlayer());
+    }
+
+    private IEnumerator DelayedMovePlayer()
+    {
+        yield return new WaitForSeconds(1.0f); // Wait for 1 second
 
         GameObject diceObject = GameObject.Find("dice1");
         rolldice diceScript = diceObject.GetComponent<rolldice>();
-        int steps = 0;
-        int result  = diceScript.GetResult();
-        for (int i = 0; i < result; i++)
+        int steps = diceScript.GetResult();
+        StartCoroutine(MovePlayer(steps));
+    }
+    private IEnumerator MovePlayer(int steps)
+    {
+        for (int i = 0; i < steps; i++)
         {
-            while(moving)
+            while (moving)
             {
-                Thread.Sleep(50);
+                yield return null;
             }
-            
+
             MoveToNextWaypoint();
-           
+
+            yield return new WaitForSeconds(0.7f);
         }
     }
+
 }

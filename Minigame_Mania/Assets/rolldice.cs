@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System.Threading;
 
 public class rolldice : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class rolldice : MonoBehaviour
     private void OnMouseDown()
     {
         StartCoroutine("RollDice");
+        
     }
 
    public  void roll()
