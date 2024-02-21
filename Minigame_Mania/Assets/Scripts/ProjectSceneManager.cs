@@ -16,7 +16,7 @@ public class ProjectSceneManager : NetworkBehaviour
         
         LevelBtn.onClick.AddListener(() => {
 
-            if (NetworkManager.Singleton.IsHost)
+            if (IsHost)
             {
                 Debug.Log("Is host");
                 NetworkManager.SceneManager.LoadScene(m_SceneName, LoadSceneMode.Single);

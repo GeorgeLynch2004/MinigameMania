@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using System.Linq;
 
 public class LevelManager : NetworkBehaviour
 {
@@ -26,6 +27,27 @@ public class LevelManager : NetworkBehaviour
         }
 
         StartCoroutine(GameStartSequence());
+    }
+
+    public void Update()
+    {
+        // get an array of dead players
+        List<GameObject> playersArray = m_GameManager.GetPlayersArray();
+        List<GameObject> deadPlayers = new List<GameObject>();
+        foreach (GameObject player in playersArray)
+        {
+            // if the player is dead and not already in the dead players array
+            if (!player.GetComponent<HealthSystem>().isAlive() && !deadPlayers.Contains(player))
+            {
+                deadPlayers.Add(player);
+            }
+        }
+
+        if (deadPlayers.Count == playersArray.Count)
+        {
+            deadPlayers.Reverse();
+            m_GameManager.SetLastMinigamesPositions(deadPlayers);
+        }
     }
 
     public int getMaximumPlayers()

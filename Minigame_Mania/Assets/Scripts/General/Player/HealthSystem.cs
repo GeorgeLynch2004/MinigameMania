@@ -42,4 +42,9 @@ public class HealthSystem : NetworkBehaviour
     {
         return m_CurrentHealth.Value;
     }
+
+    public bool isAlive()
+    {
+        return m_IsAlive.Value;
+    }
 }

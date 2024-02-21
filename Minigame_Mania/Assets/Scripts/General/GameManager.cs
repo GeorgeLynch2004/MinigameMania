@@ -8,6 +8,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private NetworkVariable<int> playerCount = new();
     [SerializeField] private NetworkVariable<bool> gameRunning = new();
     [SerializeField] private List<GameObject> playersArray = new List<GameObject>();
+    [SerializeField] private NetworkVariable<List<GameObject>> lastMinigamesPositions;
 
     private void Start()
     {
@@ -58,5 +59,15 @@ public class GameManager : NetworkBehaviour
     public void SetGameRunning(bool state)
     {
         gameRunning.Value = state;
+    }
+
+    public List<GameObject> GetLastMinigamesPositions()
+    {
+        return lastMinigamesPositions.Value;
+    }
+
+    public void SetLastMinigamesPositions(List<GameObject> players)
+    {
+        lastMinigamesPositions.Value = players;
     }
 }
