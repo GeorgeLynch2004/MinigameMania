@@ -20,21 +20,14 @@ public class moveplayer : MonoBehaviour
     public int playerturn;
     public int thisplayer;
     public int player_count;
+    private turncounter turnCounterScript;
     public void SetDiceResult(int diceResult)
     {
         result = diceResult;
     }
         // Start is called before the first frame update
 
-    public void startgame()
-    {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("player");
-
-        player_count = players.Length;
-        thisplayer = Int32.Parse(gameObject.name);
-        playerturn = 1;
-       
-    }
+   
         private void SortWaypointsByName()
     {
         bool swapped;
@@ -56,15 +49,19 @@ public class moveplayer : MonoBehaviour
 
     void Start()
     {
+        thisplayer = int.Parse(gameObject.name);
+        GameObject boardObject = GameObject.Find("Board");
+        turnCounterScript = boardObject.GetComponent<turncounter>();
 
         waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
         SortWaypointsByName();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-       // playerturn = turncount++;
+      
         moving = true;
         transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position, moveSpeed * Time.deltaTime);
         moving = false;
@@ -76,18 +73,17 @@ public class moveplayer : MonoBehaviour
     {
         currentWaypointIndex = Mathf.Min(currentWaypointIndex + 1, waypoints.Length - 1);
     }
-
+    
     public void DiceMove()
 
     {
+        playerturn = turnCounterScript.getTurn();
+
         if (playerturn == thisplayer)
         {
             StartCoroutine(DelayedMovePlayer());
-            playerturn++;
-            if (playerturn > player_count)
-            {
-                playerturn = 1;
-            }
+            
+
         }
         else
         {

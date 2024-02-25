@@ -230,6 +230,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1256186786}
+        m_TargetAssemblyTypeName: turncounter, Assembly-CSharp
+        m_MethodName: nextTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &52258139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,21 +517,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 990738150}
-        m_TargetAssemblyTypeName: moveplayer, Assembly-CSharp
-        m_MethodName: startgame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 642581576}
-        m_TargetAssemblyTypeName: moveplayer, Assembly-CSharp
-        m_MethodName: startgame
+      - m_Target: {fileID: 1256186786}
+        m_TargetAssemblyTypeName: turncounter, Assembly-CSharp
+        m_MethodName: Startgame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -917,6 +917,7 @@ MonoBehaviour:
   turncount: 0
   playerturn: 0
   thisplayer: 0
+  player_count: 0
 --- !u!212 &642581577
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1317,6 +1318,7 @@ MonoBehaviour:
   turncount: 0
   playerturn: 0
   thisplayer: 0
+  player_count: 0
 --- !u!1 &991643706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1686,6 +1688,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1256186786}
+        m_TargetAssemblyTypeName: turncounter, Assembly-CSharp
+        m_MethodName: nextTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1252089679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1766,6 +1780,7 @@ GameObject:
   - component: {fileID: 1256186785}
   - component: {fileID: 1256186784}
   - component: {fileID: 1256186783}
+  - component: {fileID: 1256186786}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -1822,6 +1837,20 @@ Transform:
   - {fileID: 1207375543}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1256186786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256186782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b382141efe3883041949dca66afbdb74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turn: 1
+  player_count: 0
 --- !u!1 &1388918433
 GameObject:
   m_ObjectHideFlags: 0
