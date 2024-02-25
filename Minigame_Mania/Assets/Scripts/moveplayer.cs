@@ -1,7 +1,10 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
+using UnityEditor;
+
 
 
 
@@ -13,13 +16,25 @@ public class moveplayer : MonoBehaviour
     private int currentWaypointIndex = 0;
     public int result;
     public bool moving;
+    public int turncount = 0;
+    public int playerturn;
+    public int thisplayer;
+    public int player_count;
     public void SetDiceResult(int diceResult)
     {
         result = diceResult;
     }
         // Start is called before the first frame update
 
+    public void startgame()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("player");
 
+        player_count = players.Length;
+        thisplayer = Int32.Parse(gameObject.name);
+        playerturn = 1;
+       
+    }
         private void SortWaypointsByName()
     {
         bool swapped;
@@ -49,6 +64,7 @@ public class moveplayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       // playerturn = turncount++;
         moving = true;
         transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position, moveSpeed * Time.deltaTime);
         moving = false;
@@ -62,8 +78,21 @@ public class moveplayer : MonoBehaviour
     }
 
     public void DiceMove()
+
     {
-        StartCoroutine(DelayedMovePlayer());
+        if (playerturn == thisplayer)
+        {
+            StartCoroutine(DelayedMovePlayer());
+            playerturn++;
+            if (playerturn > player_count)
+            {
+                playerturn = 1;
+            }
+        }
+        else
+        {
+            EditorUtility.DisplayDialog("Turns", "Its not your turn!", "ok");
+        }
     }
 
     private IEnumerator DelayedMovePlayer()
