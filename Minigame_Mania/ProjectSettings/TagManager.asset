@@ -8,6 +8,7 @@ TagManager:
   - Meteor
   - Waypoint
   - player
+  - Item
   layers:
   - Default
   - TransparentFX

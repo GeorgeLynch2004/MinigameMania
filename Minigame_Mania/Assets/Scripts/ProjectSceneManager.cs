@@ -12,21 +12,11 @@ public class ProjectSceneManager : NetworkBehaviour
     [SerializeField] private string m_SceneName;
     private string m_previousSceneName;
 
-    private void Awake() {
-        
+    private void Awake() 
+    {    
         LevelBtn.onClick.AddListener(() => {
 
-            if (IsHost)
-            {
-                Debug.Log("Is host");
                 NetworkManager.SceneManager.LoadScene(m_SceneName, LoadSceneMode.Single);
-            }
-            else Debug.Log("Is not host");
         });     
-
-          
     }
-
-    
-   
 }

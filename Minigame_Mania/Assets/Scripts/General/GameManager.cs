@@ -5,50 +5,57 @@ using Unity.Netcode;
 
 public class GameManager : NetworkBehaviour
 {
-    [SerializeField] private NetworkVariable<int> playerCount = new();
-    [SerializeField] private NetworkVariable<bool> gameRunning = new();
-    [SerializeField] private List<GameObject> playersArray = new List<GameObject>();
-    [SerializeField] private NetworkVariable<List<GameObject>> lastMinigamesPositions;
+    [SerializeField] private NetworkManager networkManager;
+    [SerializeField] private NetworkVariable<int> playerCount = new NetworkVariable<int>();
+    [SerializeField] private NetworkVariable<bool> gameRunning = new NetworkVariable<bool>();
+    [SerializeField] private NetworkVariable<List<GameObject>> playersArray = new NetworkVariable<List<GameObject>>();
+    [SerializeField] private NetworkVariable<List<GameObject>> lastMinigamesPositions = new NetworkVariable<List<GameObject>>();
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+        networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         if (IsHost) gameRunning.Value = true;
+
+        // Initialize playersArray with an empty list
+        playersArray.Value = new List<GameObject>();
 
         // Subscribe to the client connected and disconnected events
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnectedCallback;
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnectCallback;
 
-        // Add all currently connected clients to the players array
-        foreach (var clientId in NetworkManager.Singleton.ConnectedClients.Keys)
+        if (IsHost)
         {
-            playersArray.Add(NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.gameObject);
+            // Add all currently connected clients to the players array
+            foreach (var clientId in NetworkManager.Singleton.ConnectedClients.Keys)
+            {
+                playersArray.Value.Add(NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.gameObject);
+            }
         }
+        
     }
 
-    private void OnDestroy()
-    {
-        // Unsubscribe from the events
-        NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnectedCallback;
-        NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnectCallback;
-    }
 
     private void OnClientDisconnectCallback(ulong clientId)
     {
-        playersArray.Remove(NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.gameObject);
+        // Remove the disconnected player from the players array
+        playersArray.Value.Remove(NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.gameObject);
+        // Decrement player count
         playerCount.Value--;
     }
 
     private void OnClientConnectedCallback(ulong clientId)
     {
         Debug.Log("Player Connected!");
-        playersArray.Add(NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.gameObject);
+        // Add the connected player to the players array
+        playersArray.Value.Add(NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.gameObject);
+        // Increment player count
         playerCount.Value++;
     }
 
     public List<GameObject> GetPlayersArray()
     {
-        return playersArray;
+        return playersArray.Value;
     }
 
     public bool GetGameRunning()
