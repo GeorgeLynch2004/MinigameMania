@@ -27,10 +27,8 @@ public class turncounter : MonoBehaviour
     public void Start()
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("player");
-
-       player_count = players.Length;
-        turn = 1;
-
+        player_count = players.Length;
+        turn = 1; // Move this line here after setting player_count
     }
 
     // Update is called once per frame
