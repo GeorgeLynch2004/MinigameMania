@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Meteor_Map.unity
     guid: 3a0b345a8e42dd541afeeadd4cbb1a46
+  - enabled: 1
+    path: Assets/Scenes/Boardgame_Map.unity
+    guid: 20e021c14330352479a03d7fede19a39
   m_configObjects: {}
