@@ -22,6 +22,7 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] private bool m_CanMove;
     [SerializeField] private bool m_IsGrounded;
     [SerializeField] private GameManager m_GameManager;
+    [SerializeField] private float m_ButtonMashIncrement;
 
     private void Start() 
     {
@@ -88,8 +89,14 @@ public class PlayerMovement : NetworkBehaviour
 
     private Vector3 ButtonMashMovement()
     {
-        // Until completed return 0
-        return Vector3.zero;
+        Vector3 position = transform.position;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            position.x += m_ButtonMashIncrement;
+        }
+    
+        return position;
     }
 
     private Vector3 BoardGameMovement()
