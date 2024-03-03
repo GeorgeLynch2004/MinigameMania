@@ -4,74 +4,112 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Unity.Netcode;
 
+public enum ControlMode
+{
+    ButtonMash,
+    FreeMovement,
+    BoardGame
+}
+
 public class PlayerMovement : NetworkBehaviour {
     
-    [SerializeField] private Rigidbody2D _rigidbody;
-    [SerializeField] private float _movementSpeed;
-    [SerializeField] private float _maxVelocityX;
-    [SerializeField] private float _maxVelocityY;
-    [SerializeField] private float _jumpHeight;
-    [SerializeField] private bool _canMove;
-    [SerializeField] private bool _isGrounded;
+    [SerializeField] private ControlMode m_ControlMode;
+    [SerializeField] private Rigidbody2D m_Rigidbody;
+    [SerializeField] private float m_MovementSpeed;
+    [SerializeField] private float m_MaxVelocityX;
+    [SerializeField] private float m_MaxVelocityY;
+    [SerializeField] private float m_JumpHeight;
+    [SerializeField] private bool m_CanMove;
+    [SerializeField] private bool m_IsGrounded;
     [SerializeField] private GameManager m_GameManager;
 
     private void Start() 
     {
-        _rigidbody = GetComponent<Rigidbody2D>();   
+        m_Rigidbody = GetComponent<Rigidbody2D>();   
         m_GameManager = GameObject.Find("GameManager").GetComponent<GameManager>(); 
     }
 
     private void FixedUpdate()
     {
         if (!IsOwner) return;
-        if (!_canMove) return;
+        if (!m_CanMove) return;
         if (!m_GameManager.GetGameRunning())
         {
-            _rigidbody.gravityScale = 0;
+            m_Rigidbody.gravityScale = 0;
             return;
         }
 
-        _rigidbody.gravityScale = 1;
+        m_Rigidbody.gravityScale = 1;
 
-        Vector3 _velocity = _rigidbody.velocity;
+        // Depending on the level / playmode will determine the movement model used
+        if (m_ControlMode == ControlMode.FreeMovement)
+        {
+            m_Rigidbody.velocity = FreeMovement();
+        }
+        if (m_ControlMode == ControlMode.ButtonMash)
+        {
+            m_Rigidbody.velocity = ButtonMashMovement();
+        }
+        if (m_ControlMode == ControlMode.BoardGame)
+        {
+            m_Rigidbody.velocity = BoardGameMovement();
+        }
+        
+    }
+
+    private Vector3 FreeMovement()
+    {
+        Vector3 _velocity = m_Rigidbody.velocity;
 
         // Horizontal input
-        if (Input.GetKey(KeyCode.A)){_velocity += -Vector3.right * _movementSpeed * Time.deltaTime;}
-        if (Input.GetKey(KeyCode.D)){_velocity += Vector3.right * _movementSpeed * Time.deltaTime;}
+        if (Input.GetKey(KeyCode.A)){_velocity += -Vector3.right * m_MovementSpeed * Time.deltaTime;}
+        if (Input.GetKey(KeyCode.D)){_velocity += Vector3.right * m_MovementSpeed * Time.deltaTime;}
 
         // Jump input
-        if (Input.GetKey(KeyCode.Space) && _isGrounded == true)
+        if (Input.GetKey(KeyCode.Space) && m_IsGrounded == true)
         {
-            _velocity += Vector3.up * _jumpHeight * Time.deltaTime;
+            _velocity += Vector3.up * m_JumpHeight * Time.deltaTime;
         }
 
         // Cap velocity
-        _velocity.x = Mathf.Clamp(_velocity.x, -_maxVelocityX, _maxVelocityX);
+        _velocity.x = Mathf.Clamp(_velocity.x, -m_MaxVelocityX, m_MaxVelocityX);
 
         if (_velocity.y > 0)
         {
-            _velocity.y = Mathf.Clamp(_velocity.y, -_maxVelocityY, _maxVelocityY);
+            _velocity.y = Mathf.Clamp(_velocity.y, -m_MaxVelocityY, m_MaxVelocityY);
         }
         else
         {
             _velocity.y *= 1.1f;
         }
         
-        _rigidbody.velocity = _velocity;
+        return _velocity;
+    }
+
+    private Vector3 ButtonMashMovement()
+    {
+        // Until completed return 0
+        return Vector3.zero;
+    }
+
+    private Vector3 BoardGameMovement()
+    {
+        // Until completed return 0
+        return Vector3.zero;
     }
 
     public void setIsGrounded(bool state)
     {
-        _isGrounded = state;
+        m_IsGrounded = state;
     }
 
     public bool getCanMove()
     {
-        return _canMove;
+        return m_CanMove;
     }
 
     public void setCanMove(bool state)
     {
-        _canMove = state;
+        m_CanMove = state;
     }
 }
