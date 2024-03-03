@@ -337,13 +337,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2616f7d9aa1ffb4dbf9937ad8c770fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rigidbody: {fileID: 1161747144673065286}
-  _movementSpeed: 100
-  _maxVelocityX: 5
-  _maxVelocityY: 20
-  _jumpHeight: 1000
-  _canMove: 1
-  _isGrounded: 0
+  m_ControlMode: 1
+  m_Rigidbody: {fileID: 0}
+  m_MovementSpeed: 0
+  m_MaxVelocityX: 0
+  m_MaxVelocityY: 0
+  m_JumpHeight: 0
+  m_CanMove: 0
+  m_IsGrounded: 0
   m_GameManager: {fileID: 0}
 --- !u!114 &1047339899901787558
 MonoBehaviour:

@@ -11,8 +11,8 @@ public enum ControlMode
     BoardGame
 }
 
-public class PlayerMovement : NetworkBehaviour {
-    
+public class PlayerMovement : NetworkBehaviour 
+{    
     [SerializeField] private ControlMode m_ControlMode;
     [SerializeField] private Rigidbody2D m_Rigidbody;
     [SerializeField] private float m_MovementSpeed;
