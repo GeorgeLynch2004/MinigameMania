@@ -877,6 +877,7 @@ GameObject:
   - component: {fileID: 642581575}
   - component: {fileID: 642581577}
   - component: {fileID: 642581576}
+  - component: {fileID: 642581578}
   m_Layer: 0
   m_Name: 2
   m_TagString: player
@@ -970,6 +971,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &642581578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642581574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 4072973365
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &718550634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1226,6 +1247,7 @@ GameObject:
   - component: {fileID: 990738149}
   - component: {fileID: 990738148}
   - component: {fileID: 990738150}
+  - component: {fileID: 990738151}
   m_Layer: 0
   m_Name: 1
   m_TagString: player
@@ -1319,6 +1341,26 @@ MonoBehaviour:
   playerturn: 0
   thisplayer: 0
   player_count: 0
+--- !u!114 &990738151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990738147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3256669286
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &991643706
 GameObject:
   m_ObjectHideFlags: 0
