@@ -11,13 +11,13 @@ using Unity.Netcode;
 
 
 
-public class moveplayer : MonoBehaviour
+public class moveplayer : NetworkBehaviour
 {
 
     public float moveSpeed = 5f;
     private GameObject[] waypoints;
-    public int currentWaypointIndex = 0;
-    public int result;
+    public NetworkVariable<int> currentWaypointIndex = new NetworkVariable<int>(0);
+    public NetworkVariable<int> result;
     public bool moving;
     public int turncount = 0;
     public int playerturn;
@@ -26,7 +26,7 @@ public class moveplayer : MonoBehaviour
     private turncounter turnCounterScript;
     public void SetDiceResult(int diceResult)
     {
-        result = diceResult;
+        result = new NetworkVariable<int>(diceResult);
     }
         // Start is called before the first frame update
 
@@ -66,7 +66,7 @@ public class moveplayer : MonoBehaviour
     {
       
         moving = true;
-        transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypointIndex].transform.position, moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypointIndex.Value].transform.position, moveSpeed * Time.deltaTime);
         moving = false;
     }
 
@@ -74,7 +74,7 @@ public class moveplayer : MonoBehaviour
     //function that can be called on button press/dice roll when implemented
     public void MoveToNextWaypoint()
     {
-        currentWaypointIndex = Mathf.Min(currentWaypointIndex + 1, waypoints.Length - 1);
+        currentWaypointIndex = new NetworkVariable<int>(Mathf.Min((currentWaypointIndex.Value) + 1, waypoints.Length - 1));
     }
     
     public void DiceMove()
