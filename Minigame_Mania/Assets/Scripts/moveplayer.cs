@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
 using UnityEditor;
+using UnityEngine.Networking;
+
+using Unity.Netcode;
 
 
 
@@ -13,7 +16,7 @@ public class moveplayer : MonoBehaviour
 
     public float moveSpeed = 5f;
     private GameObject[] waypoints;
-    private int currentWaypointIndex = 0;
+    public int currentWaypointIndex = 0;
     public int result;
     public bool moving;
     public int turncount = 0;
