@@ -28,7 +28,7 @@ public class ObjectSpawner : NetworkBehaviour
     void Update()
     {
         if (!IsHost) return;
-        if (!m_GameManager.GetGameRunning()) return;
+        if (!m_GameManager.IsGameRunning()) return;
 
         if (currentTimer >= timeBetweenSpawns) 
         {

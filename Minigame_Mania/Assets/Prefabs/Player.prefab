@@ -339,13 +339,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ControlMode: 1
   m_Rigidbody: {fileID: 0}
-  m_MovementSpeed: 0
-  m_MaxVelocityX: 0
-  m_MaxVelocityY: 0
-  m_JumpHeight: 0
-  m_CanMove: 0
+  m_MovementSpeed: 100
+  m_MaxVelocityX: 10
+  m_MaxVelocityY: 10
+  m_JumpHeight: 1000
+  m_CanMove: 1
   m_IsGrounded: 0
   m_GameManager: {fileID: 0}
+  m_ButtonMashIncrement: 2
 --- !u!114 &1047339899901787558
 MonoBehaviour:
   m_ObjectHideFlags: 0

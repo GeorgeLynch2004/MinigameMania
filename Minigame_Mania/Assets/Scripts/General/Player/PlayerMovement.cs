@@ -34,7 +34,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (!IsOwner) return;
         if (!m_CanMove) return;
-        if (!m_GameManager.GetGameRunning())
+        if (!m_GameManager.IsGameRunning())
         {
             m_Rigidbody.gravityScale = 0;
             return;
@@ -55,7 +55,6 @@ public class PlayerMovement : NetworkBehaviour
         {
             m_Rigidbody.velocity = BoardGameMovement();
         }
-        
     }
 
     private Vector3 FreeMovement()

@@ -30,6 +30,10 @@ public class HealthSystem : NetworkBehaviour
             m_PlayerMovement.setCanMove(false);
             m_IsAlive.Value = false;
         }
+        if (m_CurrentHealth.Value > m_MaxHealth)
+        {
+            m_CurrentHealth.Value = m_MaxHealth;
+        }
     }
 
 

@@ -1,64 +1,69 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.InputSystem;
+using Unity.Netcode.Components;
 
 public class GameManager : NetworkBehaviour
 {
-    [SerializeField] private NetworkManager networkManager;
-    [SerializeField] private NetworkVariable<int> playerCount = new NetworkVariable<int>();
+    // Define a struct to hold player data
+    [Serializable]
+    public struct PlayerData
+    {
+        public ulong clientId;
+        public string playerName;
+        public int health;
+        public bool alive;
+    }
+
+    // Define custom events for player connection and disconnection
+    public event Action<PlayerData> OnPlayerConnected;
+    public event Action<ulong> OnPlayerDisconnected;
+
+    // Track connected players using a dictionary
+    private Dictionary<ulong, PlayerData> connectedPlayers = new Dictionary<ulong, PlayerData>();
+
     [SerializeField] private NetworkVariable<bool> gameRunning = new NetworkVariable<bool>();
-    [SerializeField] private NetworkVariable<List<GameObject>> playersArray = new NetworkVariable<List<GameObject>>();
-    [SerializeField] private NetworkVariable<List<GameObject>> lastMinigamesPositions = new NetworkVariable<List<GameObject>>();
+    [SerializeField] private List<ulong> m_LastMinigamePositions = new List<ulong>();
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-        networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         if (IsHost) gameRunning.Value = true;
-
-        // Initialize playersArray with an empty list
-        playersArray.Value = new List<GameObject>();
 
         // Subscribe to the client connected and disconnected events
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnectedCallback;
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnectCallback;
 
-        if (IsHost)
-        {
-            // Add all currently connected clients to the players array
-            foreach (var clientId in NetworkManager.Singleton.ConnectedClients.Keys)
-            {
-                playersArray.Value.Add(NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.gameObject);
-            }
-        }
-        
+        // Initialize gameRunning
+        gameRunning.Value = IsHost;
     }
-
 
     private void OnClientDisconnectCallback(ulong clientId)
     {
-        // Remove the disconnected player from the players array
-        playersArray.Value.Remove(NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.gameObject);
-        // Decrement player count
-        playerCount.Value--;
+        if (connectedPlayers.ContainsKey(clientId))
+        {
+            var disconnectedPlayer = connectedPlayers[clientId];
+            connectedPlayers.Remove(clientId);
+            OnPlayerDisconnected?.Invoke(clientId);
+        }
     }
 
     private void OnClientConnectedCallback(ulong clientId)
     {
-        Debug.Log("Player Connected!");
-        // Add the connected player to the players array
-        playersArray.Value.Add(NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.gameObject);
-        // Increment player count
-        playerCount.Value++;
+        if (!connectedPlayers.ContainsKey(clientId))
+        {
+            var playerObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;
+            var playerName = playerObject.gameObject.name; // Example: Use appropriate way to get player name
+            var playerData = new PlayerData { clientId = clientId, playerName = playerName, health = 0, alive = true};
+            connectedPlayers.Add(clientId, playerData);
+            OnPlayerConnected?.Invoke(playerData);
+        }
     }
 
-    public List<GameObject> GetPlayersArray()
-    {
-        return playersArray.Value;
-    }
-
-    public bool GetGameRunning()
+    public bool IsGameRunning()
     {
         return gameRunning.Value;
     }
@@ -68,13 +73,58 @@ public class GameManager : NetworkBehaviour
         gameRunning.Value = state;
     }
 
-    public List<GameObject> GetLastMinigamesPositions()
+    public List<PlayerData> GetConnectedPlayers()
     {
-        return lastMinigamesPositions.Value;
+        return new List<PlayerData>(connectedPlayers.Values);
     }
 
-    public void SetLastMinigamesPositions(List<GameObject> players)
+    // Method to set the position of all connected players
+    public void SetAllPlayerPositions(List<Transform> newTransform)
     {
-        lastMinigamesPositions.Value = players;
+        int posIndex = 0;
+        foreach (var clientId in connectedPlayers.Keys)
+        {
+            var playerObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;
+            if (playerObject != null)
+            {
+                playerObject.transform.position = newTransform[posIndex].position;
+                posIndex++;
+            }
+        }
+    }
+
+    // method to get a list of players that are dead
+    public List<ulong> GetDeadPlayers()
+    {
+        List<ulong> deadPlayerIDs = new List<ulong>();
+
+        foreach (PlayerData playerData in connectedPlayers.Values)
+        {
+            if (playerData.alive == false && !deadPlayerIDs.Contains(playerData.clientId))
+            {
+                deadPlayerIDs.Add(playerData.clientId);
+            }
+        }
+        return deadPlayerIDs;
+    }
+
+    public List<ulong> GetTotalPlayerIDs()
+    {
+        List<ulong> totalPlayerIDs = new List<ulong>();
+
+        foreach (PlayerData playerData in connectedPlayers.Values)
+        {
+            if (!totalPlayerIDs.Contains(playerData.clientId))
+            {
+                totalPlayerIDs.Add(playerData.clientId);
+            }
+        }
+
+        return totalPlayerIDs;
+    }
+
+    public void SetLastMinigamePositions(List<ulong> lastMinigamePositions)
+    {
+        m_LastMinigamePositions = lastMinigamePositions;
     }
 }
