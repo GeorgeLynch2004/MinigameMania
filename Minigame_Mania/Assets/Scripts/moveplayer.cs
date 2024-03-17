@@ -20,7 +20,7 @@ public class moveplayer : NetworkBehaviour
     public NetworkVariable<int> result;
     public bool moving;
     public int turncount = 0;
-    public int playerturn;
+    public NetworkVariable<int> playerturn;
     public int thisplayer;
     public int player_count;
     private turncounter turnCounterScript;
@@ -80,9 +80,9 @@ public class moveplayer : NetworkBehaviour
     public void DiceMove()
 
     {
-        playerturn = turnCounterScript.getTurn();
+        playerturn = new NetworkVariable<int>(turnCounterScript.getTurn());
 
-        if (playerturn == thisplayer)
+        if (playerturn.Value == thisplayer)
         {
             StartCoroutine(DelayedMovePlayer());
             
