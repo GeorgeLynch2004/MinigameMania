@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1565213053923737445
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4002186345341996974, guid: 1333a77524d93fa40bb2a8c795c804cb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.34388387
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002186345341996974, guid: 1333a77524d93fa40bb2a8c795c804cb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.26008406
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002186345341996974, guid: 1333a77524d93fa40bb2a8c795c804cb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.4154
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002186345341996974, guid: 1333a77524d93fa40bb2a8c795c804cb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.322
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002186345341996974, guid: 1333a77524d93fa40bb2a8c795c804cb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002186345341996974, guid: 1333a77524d93fa40bb2a8c795c804cb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002186345341996974, guid: 1333a77524d93fa40bb2a8c795c804cb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002186345341996974, guid: 1333a77524d93fa40bb2a8c795c804cb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002186345341996974, guid: 1333a77524d93fa40bb2a8c795c804cb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002186345341996974, guid: 1333a77524d93fa40bb2a8c795c804cb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002186345341996974, guid: 1333a77524d93fa40bb2a8c795c804cb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002186345341996974, guid: 1333a77524d93fa40bb2a8c795c804cb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7812246923203291741, guid: 1333a77524d93fa40bb2a8c795c804cb, type: 3}
+      propertyPath: m_Name
+      value: RockPlatforms_3 (1) Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1333a77524d93fa40bb2a8c795c804cb, type: 3}
