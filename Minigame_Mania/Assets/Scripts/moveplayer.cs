@@ -101,7 +101,7 @@ public class moveplayer : NetworkBehaviour
         }
         else
         {
-            EditorUtility.DisplayDialog("Turns", "Its not your turn!", "ok");
+            
         }
     }
 
