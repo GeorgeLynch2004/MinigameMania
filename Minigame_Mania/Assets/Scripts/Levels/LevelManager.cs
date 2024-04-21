@@ -27,15 +27,19 @@ public class LevelManager : NetworkBehaviour
         // get an array of dead players
         List<ulong> deadPlayersIDs = new List<ulong>();
         deadPlayersIDs = m_GameManager.GetDeadPlayers();
+        Debug.Log("DeadPlayerIDs: "+ deadPlayersIDs.ToString());
         // get an array of total players
         List<ulong> totalPlayersIDs = new List<ulong>();
+        Debug.Log("TotalPlayerIDs:"+ totalPlayersIDs.ToString());
         totalPlayersIDs = m_GameManager.GetTotalPlayerIDs();
 
         // Check if a winner is determined
         if (deadPlayersIDs.Count == totalPlayersIDs.Count -1 && deadPlayersIDs.Count != 0)
         {
+            Debug.Log("Winner is Player " + deadPlayersIDs[0]);
             deadPlayersIDs.Reverse();
             m_GameManager.SetLastMinigamePositions(deadPlayersIDs);
+            Debug.Log("Starting Game End Sequence");
             StartCoroutine(GameEndSequence());
         }
         
@@ -57,7 +61,7 @@ public class LevelManager : NetworkBehaviour
     {
         m_GameManager.SetGameRunning(false);
         yield return new WaitForSeconds(3);
-        NetworkManager.SceneManager.LoadScene("Boardgame_Map", LoadSceneMode.Single);
+        NetworkManager.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
     }
     
 }

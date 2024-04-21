@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
-using UnityEditor;
+//using UnityEditor;
 using UnityEngine.Networking;
 
 using Unity.Netcode;
@@ -66,7 +66,7 @@ public class moveplayer : NetworkBehaviour
     {
         if (currentWaypointIndex.Value == 14)
         {
-            EditorUtility.DisplayDialog("Game over", "Game over (scene switch to lobby)", "ok");
+            Debug.Log("Game over Game over (scene switch to lobby) ok");
         }
         moving = true;
         transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypointIndex.Value].transform.position, moveSpeed * Time.deltaTime);
@@ -79,7 +79,7 @@ public class moveplayer : NetworkBehaviour
     {
         if (currentWaypointIndex.Value == 14)
         {
-            EditorUtility.DisplayDialog("Game over", "Game over (scene switch to lobby)", "ok");
+            Debug.Log("Game over Game over (scene switch to lobby) ok");
         }
         currentWaypointIndex = new NetworkVariable<int>(Mathf.Min((currentWaypointIndex.Value) + 1, waypoints.Length - 1));
     }
@@ -89,7 +89,7 @@ public class moveplayer : NetworkBehaviour
     {
         if (currentWaypointIndex.Value == 14)
         {
-            EditorUtility.DisplayDialog("Game over", "Game over (scene switch to lobby)", "ok");
+            Debug.Log("Game over Game over (scene switch to lobby) ok");
         }
         playerturn = new NetworkVariable<int>(turnCounterScript.getTurn());
 
@@ -101,7 +101,7 @@ public class moveplayer : NetworkBehaviour
         }
         else
         {
-            EditorUtility.DisplayDialog("Turns", "Its not your turn!", "ok");
+            Debug.Log("Turns its not your turn! ok");
         }
     }
 
@@ -109,7 +109,7 @@ public class moveplayer : NetworkBehaviour
     {
         if (currentWaypointIndex.Value == 14)
         {
-            EditorUtility.DisplayDialog("Game over", "Game over (scene switch to lobby)", "ok");
+            Debug.Log("Game over Game over (scene switch to lobby) ok");
         }
         yield return new WaitForSeconds(1.0f); // Wait for 1 second
 
@@ -122,7 +122,7 @@ public class moveplayer : NetworkBehaviour
     {
         if (currentWaypointIndex.Value == 14)
         {
-            EditorUtility.DisplayDialog("Game over", "Game over (scene switch to lobby)", "ok");
+            Debug.Log("Game over Game over (scene switch to lobby) ok");
         }
         for (int i = 0; i < steps; i++)
         {

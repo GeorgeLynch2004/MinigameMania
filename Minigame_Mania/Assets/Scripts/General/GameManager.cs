@@ -31,14 +31,13 @@ public class GameManager : NetworkBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-        if (IsHost) gameRunning.Value = true;
 
         // Subscribe to the client connected and disconnected events
         NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnectedCallback;
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnectCallback;
 
         // Initialize gameRunning
-        gameRunning.Value = IsHost;
+        gameRunning.Value = true;
     }
 
     private void OnClientDisconnectCallback(ulong clientId)
