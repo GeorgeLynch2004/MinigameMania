@@ -9,6 +9,7 @@ TagManager:
   - Waypoint
   - player
   - Item
+  - LobbyCode
   layers:
   - Default
   - TransparentFX

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
-using UnityEditor;
+
 using UnityEngine.Networking;
 
 using Unity.Netcode;
@@ -90,7 +90,7 @@ public class moveplayer : NetworkBehaviour
         }
         else
         {
-            EditorUtility.DisplayDialog("Turns", "Its not your turn!", "ok");
+            //EditorUtility.DisplayDialog("Turns", "Its not your turn!", "ok");
         }
     }
 

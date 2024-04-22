@@ -30,6 +30,7 @@ public class GameManager : NetworkBehaviour
 
     private void Start()
     {
+        
         DontDestroyOnLoad(gameObject);
         if (IsHost) gameRunning.Value = true;
 
@@ -38,7 +39,8 @@ public class GameManager : NetworkBehaviour
         NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnectCallback;
 
         // Initialize gameRunning
-        gameRunning.Value = IsHost;
+        //gameRunning.Value = IsHost;
+        gameRunning.Value = true;
     }
 
     private void OnClientDisconnectCallback(ulong clientId)

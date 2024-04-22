@@ -24,5 +24,5 @@ public class NetworkManagerUI : NetworkBehaviour
             NetworkManager.Singleton.StartClient();
         });
     }
-  
+
 }
