@@ -29,11 +29,18 @@ public class HealthSystem : NetworkBehaviour
             m_CurrentHealth.Value = 0;
             m_PlayerMovement.setCanMove(false);
             m_IsAlive.Value = false;
+            temporaryDeathColourClientRpc();
         }
         if (m_CurrentHealth.Value > m_MaxHealth)
         {
             m_CurrentHealth.Value = m_MaxHealth;
         }
+    }
+
+    [ClientRpc]
+    private void temporaryDeathColourClientRpc()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(0,0,0);
     }
 
 
@@ -51,4 +58,6 @@ public class HealthSystem : NetworkBehaviour
     {
         return m_IsAlive.Value;
     }
+
+
 }

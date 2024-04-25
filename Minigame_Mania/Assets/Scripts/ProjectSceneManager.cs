@@ -8,15 +8,21 @@ using UnityEngine.SceneManagement;
 
 public class ProjectSceneManager : NetworkBehaviour
 {
-    [SerializeField] private Button LevelBtn;
-    [SerializeField] private string m_SceneName;
+    [System.Serializable]
+    public struct Level
+    {
+        public Button levelBtn;
+        public string sceneName;
+    }
+
     private string m_previousSceneName;
+    [SerializeField] Level[] m_Levels;
 
     private void Awake() 
     {    
-        LevelBtn.onClick.AddListener(() => {
-
-                NetworkManager.SceneManager.LoadScene(m_SceneName, LoadSceneMode.Single);
-        });     
+        foreach (Level level in m_Levels)
+        {
+            level.levelBtn.onClick.AddListener(() => {NetworkManager.SceneManager.LoadScene(level.sceneName, LoadSceneMode.Single);});
+        }
     }
 }

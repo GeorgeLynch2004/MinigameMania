@@ -7,6 +7,14 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : NetworkBehaviour
 {
+    private enum LevelType
+    {
+        Lobby,
+        Sprint,
+        Platformer,
+    }
+
+    [SerializeField] private LevelType levelType;
     [SerializeField] private int m_MaximumPlayers;
     [SerializeField] private List<Transform> m_SpawnPositions;
     [SerializeField] private GameManager m_GameManager;
@@ -19,7 +27,26 @@ public class LevelManager : NetworkBehaviour
         // set the positions of the players ready for level start
         m_GameManager.SetAllPlayerPositions(m_SpawnPositions);
 
+        // adjust stuff according to what the level requires
+        adjustLevelSettings(levelType);
+
         StartCoroutine(GameStartSequence());
+    }
+
+    private void adjustLevelSettings(LevelType levelType)
+    {
+        if (levelType == LevelType.Sprint)
+        {
+            foreach (var clientId in m_GameManager.connectedPlayers.Keys)
+            {
+                var playerObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;
+                if (playerObject != null)
+                {
+                    GeneralPlayerUtilities utilityComponent = playerObject.GetComponent<GeneralPlayerUtilities>();
+                    utilityComponent.UpdatePlayerGravityScaleClientRpc(false);
+                }
+            }
+        }
     }
 
     public void Update()

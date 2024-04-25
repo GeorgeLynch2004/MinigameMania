@@ -1,7 +1,9 @@
 using UnityEngine;
 using TMPro;
+using Unity.Networking;
+using Unity.Netcode;
 
-public class FinishLine : MonoBehaviour
+public class FinishLine : NetworkBehaviour
 {
     public TMP_Text finishText;
 

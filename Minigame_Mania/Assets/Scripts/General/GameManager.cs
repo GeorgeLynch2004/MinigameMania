@@ -23,7 +23,7 @@ public class GameManager : NetworkBehaviour
     public event Action<ulong> OnPlayerDisconnected;
 
     // Track connected players using a dictionary
-    private Dictionary<ulong, PlayerData> connectedPlayers = new Dictionary<ulong, PlayerData>();
+    public Dictionary<ulong, PlayerData> connectedPlayers = new Dictionary<ulong, PlayerData>();
 
     [SerializeField] private NetworkVariable<bool> gameRunning = new NetworkVariable<bool>();
     [SerializeField] private List<ulong> m_LastMinigamePositions = new List<ulong>();
@@ -86,7 +86,8 @@ public class GameManager : NetworkBehaviour
             var playerObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;
             if (playerObject != null)
             {
-                playerObject.transform.position = newTransform[posIndex].position;
+                GeneralPlayerUtilities utilityComponent = playerObject.GetComponent<GeneralPlayerUtilities>();
+                utilityComponent.UpdatePositionClientRpc(newTransform[posIndex].position);
                 posIndex++;
             }
         }
