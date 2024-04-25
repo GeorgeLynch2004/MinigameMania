@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : NetworkBehaviour
 {
-    private enum LevelType
+    public enum LevelType
     {
         Lobby,
         Sprint,
@@ -35,18 +35,24 @@ public class LevelManager : NetworkBehaviour
 
     private void adjustLevelSettings(LevelType levelType)
     {
-        if (levelType == LevelType.Sprint)
-        {
-            foreach (var clientId in m_GameManager.connectedPlayers.Keys)
+        foreach (var clientId in m_GameManager.connectedPlayers.Keys)
             {
                 var playerObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject;
+                GeneralPlayerUtilities utilityComponent = playerObject.GetComponent<GeneralPlayerUtilities>();
                 if (playerObject != null)
                 {
-                    GeneralPlayerUtilities utilityComponent = playerObject.GetComponent<GeneralPlayerUtilities>();
-                    utilityComponent.UpdatePlayerGravityScaleClientRpc(false);
+                    if (levelType == LevelType.Sprint)
+                    {
+                        utilityComponent.UpdatePlayerGravityScaleClientRpc(false);
+                        utilityComponent.newLevelPreperationClientRpc(LevelType.Sprint);
+                    }
+                    if (levelType == LevelType.Platformer)
+                    {
+                        utilityComponent.UpdatePlayerGravityScaleClientRpc(true);
+                        utilityComponent.newLevelPreperationClientRpc(LevelType.Platformer);                        
+                    }
                 }
             }
-        }
     }
 
     public void Update()

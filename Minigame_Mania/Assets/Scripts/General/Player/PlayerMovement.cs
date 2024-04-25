@@ -30,17 +30,10 @@ public class PlayerMovement : NetworkBehaviour
         m_GameManager = GameObject.Find("GameManager").GetComponent<GameManager>(); 
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (!IsOwner) return;
         if (!m_CanMove) return;
-        if (!m_GameManager.IsGameRunning())
-        {
-            m_Rigidbody.gravityScale = 0;
-            return;
-        }
-
-        m_Rigidbody.gravityScale = 1;
 
         // Depending on the level / playmode will determine the movement model used
         if (m_ControlMode == ControlMode.FreeMovement)
@@ -49,7 +42,7 @@ public class PlayerMovement : NetworkBehaviour
         }
         if (m_ControlMode == ControlMode.ButtonMash)
         {
-            m_Rigidbody.velocity = ButtonMashMovement();
+            transform.position = ButtonMashMovement();
         }
         if (m_ControlMode == ControlMode.BoardGame)
         {
@@ -117,5 +110,10 @@ public class PlayerMovement : NetworkBehaviour
     public void setCanMove(bool state)
     {
         m_CanMove = state;
+    }
+
+    public void setControlMode(ControlMode controlMode)
+    {
+        m_ControlMode = controlMode;
     }
 }

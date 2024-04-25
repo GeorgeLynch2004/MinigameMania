@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sprint.unity
     guid: 91d75dde310584d16a5574be250c07bd
+  - enabled: 1
+    path: Assets/Scenes/Floor_Is_Lava.unity
+    guid: 3028b4225e96c67448bae487d9cd2340
   m_configObjects: {}

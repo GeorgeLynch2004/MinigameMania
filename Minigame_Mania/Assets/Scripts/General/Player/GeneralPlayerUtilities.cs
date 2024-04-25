@@ -28,4 +28,21 @@ public class GeneralPlayerUtilities : NetworkBehaviour
         }
     }
 
+    [ClientRpc]
+    public void newLevelPreperationClientRpc(LevelManager.LevelType levelType)
+    {
+        PlayerMovement pm = GetComponent<PlayerMovement>();
+            if (pm != null)
+            {
+                if (levelType == LevelManager.LevelType.Sprint)
+                {
+                    pm.setControlMode(ControlMode.ButtonMash);
+                }
+                else if (levelType == LevelManager.LevelType.Platformer)
+                {
+                    pm.setControlMode(ControlMode.FreeMovement);
+                }
+            }
+    }
+
 }
