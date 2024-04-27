@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3dd182999fa2cc4e9e080c915361a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToSpawn: {fileID: 2930501876945026931, guid: de2bd182f5aaa5d4e816b0d1f4927180, type: 3}
+  objectToSpawn: {fileID: 2930501876945026931, guid: 797e6c42a4713974184bf68f10d728fe, type: 3}
   xRandomDistance: 10
   yRandomDistance: 0
   timeBetweenSpawns: 0.5
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3364367399
+  GlobalObjectIdHash: 4237097858
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0

@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 159492899718931372}
   - component: {fileID: 1047339899901787558}
   - component: {fileID: 2594690404099482796}
+  - component: {fileID: 1668849439889046581}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -395,3 +396,15 @@ MonoBehaviour:
   m_PermittedPickupTags:
   - Item
   m_CollidedObjects: []
+--- !u!114 &1668849439889046581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7555317427053185411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43b40b17bfc92ab4ab416c2eeb1a6ec5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

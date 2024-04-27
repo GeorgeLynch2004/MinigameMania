@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
-
+//using UnityEditor;
 using UnityEngine.Networking;
 
 using Unity.Netcode;
@@ -64,7 +64,10 @@ public class moveplayer : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-      
+        if (currentWaypointIndex.Value == 14)
+        {
+            Debug.Log("Game over Game over (scene switch to lobby) ok");
+        }
         moving = true;
         transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypointIndex.Value].transform.position, moveSpeed * Time.deltaTime);
         moving = false;
@@ -74,12 +77,20 @@ public class moveplayer : NetworkBehaviour
     //function that can be called on button press/dice roll when implemented
     public void MoveToNextWaypoint()
     {
+        if (currentWaypointIndex.Value == 14)
+        {
+            Debug.Log("Game over Game over (scene switch to lobby) ok");
+        }
         currentWaypointIndex = new NetworkVariable<int>(Mathf.Min((currentWaypointIndex.Value) + 1, waypoints.Length - 1));
     }
     
     public void DiceMove()
 
     {
+        if (currentWaypointIndex.Value == 14)
+        {
+            Debug.Log("Game over Game over (scene switch to lobby) ok");
+        }
         playerturn = new NetworkVariable<int>(turnCounterScript.getTurn());
 
         if (playerturn.Value == thisplayer)
@@ -90,12 +101,16 @@ public class moveplayer : NetworkBehaviour
         }
         else
         {
-            //EditorUtility.DisplayDialog("Turns", "Its not your turn!", "ok");
+            Debug.Log("Turns its not your turn! ok");
         }
     }
 
     private IEnumerator DelayedMovePlayer()
     {
+        if (currentWaypointIndex.Value == 14)
+        {
+            Debug.Log("Game over Game over (scene switch to lobby) ok");
+        }
         yield return new WaitForSeconds(1.0f); // Wait for 1 second
 
         GameObject diceObject = GameObject.Find("dice1");
@@ -105,6 +120,10 @@ public class moveplayer : NetworkBehaviour
     }
     private IEnumerator MovePlayer(int steps)
     {
+        if (currentWaypointIndex.Value == 14)
+        {
+            Debug.Log("Game over Game over (scene switch to lobby) ok");
+        }
         for (int i = 0; i < steps; i++)
         {
             while (moving)
