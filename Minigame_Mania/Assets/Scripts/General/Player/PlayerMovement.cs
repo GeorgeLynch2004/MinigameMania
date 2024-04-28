@@ -73,7 +73,7 @@ public class PlayerMovement : NetworkBehaviour
         }
         else
         {
-            _velocity.y *= 1.1f;
+            _velocity.y += -.2f;
         }
         
         return _velocity;
