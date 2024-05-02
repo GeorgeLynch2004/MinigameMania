@@ -141,6 +141,7 @@ public class LevelManager : NetworkBehaviour
     {
         m_GameManager.SetGameRunning(false);
         yield return new WaitForSeconds(3);
+        m_GameManager.reviveAllPlayers();
         NetworkManager.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
     }
     
