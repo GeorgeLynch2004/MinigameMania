@@ -34,6 +34,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (!IsOwner) return;
         if (!m_CanMove) return;
+        if (!m_GameManager.IsGameRunning()) return;
 
         // Depending on the level / playmode will determine the movement model used
         if (m_ControlMode == ControlMode.FreeMovement)

@@ -333,8 +333,8 @@ GameObject:
   - component: {fileID: 486050333}
   - component: {fileID: 486050332}
   - component: {fileID: 486050335}
-  - component: {fileID: 486050334}
   - component: {fileID: 486050336}
+  - component: {fileID: 486050337}
   m_Layer: 0
   m_Name: FinishLine
   m_TagString: Untagged
@@ -409,19 +409,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &486050334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 486050331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54dcb3874335644b185e01d6bce8b0d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  finishText: {fileID: 0}
 --- !u!61 &486050335
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -487,6 +474,20 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &486050337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486050331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22a27d0417bf8e241b4b95476852e07a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playersFinished:
+    m_InternalValue: []
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,6 +704,10 @@ PrefabInstance:
       propertyPath: levelType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7011691305509157857, guid: ce4ceb2cdabf64e4992b736877638e24, type: 3}
+      propertyPath: m_FinishLine
+      value: 
+      objectReference: {fileID: 486050337}
     - target: {fileID: 7011691305509157857, guid: ce4ceb2cdabf64e4992b736877638e24, type: 3}
       propertyPath: m_SpawnPositions.Array.size
       value: 4

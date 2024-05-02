@@ -2,9 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using JetBrains.Annotations;
+
+public struct playerData
+{
+    public int id;
+    public bool isAlive;
+}
 
 public class GeneralPlayerUtilities : NetworkBehaviour
 {
+    [SerializeField] public NetworkVariable<ulong> id = new NetworkVariable<ulong>();
+
+
+    [ClientRpc]
+    public void SetIdClientRpc(ulong ID)
+    {
+        id.Value = ID;
+    }
+
+    [ClientRpc]
+    public void UpdatePlayerColourClientRpc(Color colour)
+    {
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+        renderer.color = colour;
+    }
+
+    [ClientRpc]
+    public void revivePlayerClientRpc()
+    {
+        HealthSystem healthSystem = GetComponent<HealthSystem>();
+        healthSystem.reviveToFullHealth();
+    }
+
     [ClientRpc]
     public void UpdatePositionClientRpc(Vector3 pos)
     {
@@ -44,5 +74,4 @@ public class GeneralPlayerUtilities : NetworkBehaviour
                 }
             }
     }
-
 }

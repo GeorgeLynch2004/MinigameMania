@@ -49,6 +49,12 @@ public class HealthSystem : NetworkBehaviour
         m_CurrentHealth.Value += healthChange;
     }
 
+    public void reviveToFullHealth()
+    {
+        m_CurrentHealth.Value = m_MaxHealth;
+        m_IsAlive.Value = true;
+    }
+
     public float getHealth()
     {
         return m_CurrentHealth.Value;

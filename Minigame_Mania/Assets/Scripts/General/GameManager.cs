@@ -18,6 +18,8 @@ public class GameManager : NetworkBehaviour
         public bool alive;
     }
 
+    [SerializeField] private int[,] playerColours = {{255, 0, 0},{0, 255, 0},{0, 0, 255},{255, 255, 0}};
+
     // Define custom events for player connection and disconnection
     public event Action<PlayerData> OnPlayerConnected;
     public event Action<ulong> OnPlayerDisconnected;
@@ -59,9 +61,44 @@ public class GameManager : NetworkBehaviour
             var playerName = playerObject.gameObject.name; // Example: Use appropriate way to get player name
             var playerData = new PlayerData { clientId = clientId, playerName = playerName, health = 0, alive = true};
             connectedPlayers.Add(clientId, playerData);
+
+            GeneralPlayerUtilities utilitiesComponent = playerObject.GetComponent<GeneralPlayerUtilities>();
+            assignColours();
+            utilitiesComponent.SetIdClientRpc(clientId);
+
             OnPlayerConnected?.Invoke(playerData);
         }
     }
+
+    private void assignColours()
+    {
+        foreach (var player in NetworkManager.Singleton.ConnectedClients.Values)
+        {
+            var playerObject = player.PlayerObject;
+            var clientId = player.ClientId;
+            // assign the player a colour
+            GeneralPlayerUtilities utilitiesComponent = playerObject.GetComponent<GeneralPlayerUtilities>();
+            float r = playerColours[clientId, 0] / 255f;
+            float g = playerColours[clientId, 1] / 255f;
+            float b = playerColours[clientId, 2] / 255f;
+            Color colour = new Color(r, g, b);
+            utilitiesComponent.UpdatePlayerColourClientRpc(colour);
+        }
+        
+    }
+
+    public void reviveAllPlayers()
+    {
+        foreach (var player in NetworkManager.Singleton.ConnectedClients.Values)
+        {
+            var playerObject = player.PlayerObject;
+            var clientId = player.ClientId;
+            // assign the player a colour
+            GeneralPlayerUtilities utilitiesComponent = playerObject.GetComponent<GeneralPlayerUtilities>();
+            utilitiesComponent.revivePlayerClientRpc();
+        }
+    }
+
 
     public bool IsGameRunning()
     {
